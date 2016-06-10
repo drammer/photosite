@@ -56,7 +56,7 @@ function admin_wptuts_scripts_with_jquery()
    // wp_enqueue_script( 'fileupload-process' );
     //wp_enqueue_script( 'fileupload-image' );
     //wp_enqueue_script( 'fileupload-ui' );
-    wp_enqueue_script( 'upload-script' ); test
+    wp_enqueue_script( 'upload-script' );
     //wp_enqueue_style( 'photosite-style' );
 }
 add_action( 'admin_enqueue_scripts', 'admin_wptuts_scripts_with_jquery' );
