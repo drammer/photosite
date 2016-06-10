@@ -12,7 +12,7 @@
 /* jshint nomen:false */
 /* global define, require, window, document, location, Blob, FormData */
 
-(function (factory) {
+;(function (factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
@@ -738,7 +738,6 @@
                 return true;
             }
             if (ub >= fs) {
-                console.log('fileupload-test');
                 file.error = options.i18n('uploadedBytes');
                 return this._getXHRPromise(
                     false,
@@ -906,37 +905,37 @@
                             that._getXHRPromise(false, options.context, aborted)) ||
                             that._chunkedUpload(options) || $.ajax(options)
                         ).done(function (result, textStatus, jqXHR) {
-                                that._onDone(result, textStatus, jqXHR, options);
-                            }).fail(function (jqXHR, textStatus, errorThrown) {
-                                that._onFail(jqXHR, textStatus, errorThrown, options);
-                            }).always(function (jqXHRorResult, textStatus, jqXHRorError) {
-                                that._onAlways(
-                                    jqXHRorResult,
-                                    textStatus,
-                                    jqXHRorError,
-                                    options
-                                );
-                                that._sending -= 1;
-                                that._active -= 1;
-                                if (options.limitConcurrentUploads &&
-                                    options.limitConcurrentUploads > that._sending) {
-                                    // Start the next queued upload,
-                                    // that has not been aborted:
-                                    var nextSlot = that._slots.shift();
-                                    while (nextSlot) {
-                                        if (that._getDeferredState(nextSlot) === 'pending') {
-                                            nextSlot.resolve();
-                                            break;
-                                        }
-                                        nextSlot = that._slots.shift();
+                            that._onDone(result, textStatus, jqXHR, options);
+                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                            that._onFail(jqXHR, textStatus, errorThrown, options);
+                        }).always(function (jqXHRorResult, textStatus, jqXHRorError) {
+                            that._onAlways(
+                                jqXHRorResult,
+                                textStatus,
+                                jqXHRorError,
+                                options
+                            );
+                            that._sending -= 1;
+                            that._active -= 1;
+                            if (options.limitConcurrentUploads &&
+                                options.limitConcurrentUploads > that._sending) {
+                                // Start the next queued upload,
+                                // that has not been aborted:
+                                var nextSlot = that._slots.shift();
+                                while (nextSlot) {
+                                    if (that._getDeferredState(nextSlot) === 'pending') {
+                                        nextSlot.resolve();
+                                        break;
                                     }
+                                    nextSlot = that._slots.shift();
                                 }
-                                if (that._active === 0) {
-                                    // The stop callback is triggered when all uploads have
-                                    // been completed, equivalent to the global ajaxStop event:
-                                    that._trigger('stop');
-                                }
-                            });
+                            }
+                            if (that._active === 0) {
+                                // The stop callback is triggered when all uploads have
+                                // been completed, equivalent to the global ajaxStop event:
+                                that._trigger('stop');
+                            }
+                        });
                     return jqXHR;
                 };
             this._beforeSend(e, options);
@@ -1096,8 +1095,8 @@
                         entries,
                         path + entry.name + '/'
                     ).done(function (files) {
-                            dfd.resolve(files);
-                        }).fail(errorHandler);
+                        dfd.resolve(files);
+                    }).fail(errorHandler);
                 },
                 readEntries = function () {
                     dirReader.readEntries(function (results) {
@@ -1141,11 +1140,11 @@
                     return that._handleFileTreeEntry(entry, path);
                 })
             ).then(function () {
-                    return Array.prototype.concat.apply(
-                        [],
-                        arguments
-                    );
-                });
+                return Array.prototype.concat.apply(
+                    [],
+                    arguments
+                );
+            });
         },
 
         _getDroppedFiles: function (dataTransfer) {
@@ -1210,11 +1209,11 @@
                 $,
                 $.map(fileInput, this._getSingleFileInputFiles)
             ).then(function () {
-                    return Array.prototype.concat.apply(
-                        [],
-                        arguments
-                    );
-                });
+                return Array.prototype.concat.apply(
+                    [],
+                    arguments
+                );
+            });
         },
 
         _onChange: function (e) {

@@ -12,7 +12,7 @@
 /* jshint nomen:false */
 /* global define, require, window */
 
-(function (factory) {
+;(function (factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
@@ -86,7 +86,6 @@
                 if (data.result && $.isArray(data.result.files)) {
                     return data.result.files;
                 }
-
                 return [];
             },
 
@@ -125,7 +124,6 @@
                         data.autoUpload !== false) {
                         data.submit();
                     }
-
                 }).fail(function () {
                     if (data.files.error) {
                         data.context.each(function (index) {
@@ -151,20 +149,18 @@
                     // the progress to 100%, showing the full animated bar:
                     data.context
                         .find('.progress').addClass(
-                        !$.support.transition && 'progress-animated'
-                    )
+                            !$.support.transition && 'progress-animated'
+                        )
                         .attr('aria-valuenow', 100)
                         .children().first().css(
                         'width',
                         '100%'
                     );
                 }
-                console.log('test1');
                 return that._trigger('sent', e, data);
             },
             // Callback for successful uploads:
             done: function (e, data) {
-
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
@@ -212,7 +208,6 @@
                         }
                     );
                 }
-
             },
             // Callback for failed (abort or error) uploads:
             fail: function (e, data) {
@@ -246,8 +241,6 @@
                                     );
                                 }
                             );
-                            console.log('fileupload-ui-test');
-                            //file.error = 'eror';
                         } else {
                             deferred = that._addFinishedDeferreds();
                             that._transition($(this)).done(
@@ -280,7 +273,6 @@
                     that._trigger('finished', e, data);
                     that._addFinishedDeferreds().resolve();
                 }
-                console.log(data);
             },
             // Callback for upload progress events:
             progress: function (e, data) {
@@ -534,7 +526,7 @@
         _cancelHandler: function (e) {
             e.preventDefault();
             var template = $(e.currentTarget)
-                    .closest('.template-upload,.template-download'),
+                .closest('.template-upload,.template-download'),
                 data = template.data('data') || {};
             data.context = data.context || template;
             if (data.abort) {

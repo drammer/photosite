@@ -12,7 +12,7 @@
 /* jshint nomen:false */
 /* global define, require, window */
 
-(function (factory) {
+;(function (factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
@@ -133,7 +133,6 @@
         // Processes the files given as files property of the data parameter,
         // returns a Promise object that allows to bind callbacks:
         process: function (data) {
-            data.errorThrown = 'test';
             var that = this,
                 options = $.extend({}, this.options, data);
             if (options.processQueue && options.processQueue.length) {
@@ -159,7 +158,6 @@
                                 that._trigger('processstop');
                             }
                         });
-
                 });
             }
             return this._processingQueue;

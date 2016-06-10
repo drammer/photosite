@@ -265,11 +265,7 @@ function gallery_box_func($post){  ?>
 </script>
 
     <?php
-
     error_reporting(E_ALL | E_STRICT);
-require('UploadHandler.php');
-$global_img = 'tesss2';
-$upload_handler = new UploadHandler('zxc');
 
 
 //var_dump( $post );
@@ -303,8 +299,13 @@ if(isset($_POST['fileup_nonce'])){
 
             define( 'UPLOADS', 'wp-content/uploads/photosite/gallery_'.$post->ID );
             $upload_dir = wp_upload_dir( 'wp-content/uploads/photosite/gallery_'.$post->ID );
-            //echo $upload_dir['baseurl'];
+            ?><script>jQuery(document).ready(function(){
+            console.log('<?=$upload_dir['baseurl']?>' );
+            }</script><?php
 
+require('UploadHandler.php');
+$global_img = 'tesss2';
+$upload_handler = new UploadHandler($upload_dir['baseurl']);
 
             $movefile = media_handle_sideload( $fileUpload, '51' );
 
