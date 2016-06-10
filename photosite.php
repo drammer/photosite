@@ -267,8 +267,8 @@ function gallery_box_func($post){  ?>
     <?php
     error_reporting(E_ALL | E_STRICT);
 
-
-//var_dump( $post );
+//require('UploadHandler.php');
+//$upload_handler = new UploadHandler('wp-content/uploads/photosite/gallery_'.$post->ID);
 if(isset($_POST['fileup_nonce'])){
 
 //die();
@@ -288,26 +288,26 @@ if(isset($_POST['fileup_nonce'])){
             $fileUpload['type']  = $file['type'][$i];
             $fileUpload['size']  = $file['size'][$i];
             $fileUpload['tmp_name']  = $file['tmp_name'][$i];
-            //var_dump($fileUpload); echo $_POST['post_id'];
-
-//            $upload_dir_name = 'test';
-//            $upload_dir = wp_upload_dir();
-//            $user_dirname = $upload_dir['basedir'].'/gallery_51';
-//            if ( ! file_exists( $user_dirname ) ) {
-//                wp_mkdir_p( $user_dirname );
-//            }
 
             define( 'UPLOADS', 'wp-content/uploads/photosite/gallery_'.$post->ID );
-            $upload_dir = wp_upload_dir( 'wp-content/uploads/photosite/gallery_'.$post->ID );
-            ?><script>jQuery(document).ready(function(){
-            console.log('<?=$upload_dir['baseurl']?>' );
-            }</script><?php
+            $upload_dir = wp_upload_dir( 'wp-content/uploads/photosite/gallery_post_'.$post->ID );
 
-require('UploadHandler.php');
-$global_img = 'tesss2';
-$upload_handler = new UploadHandler($upload_dir['baseurl']);
+
+
 
             $movefile = media_handle_sideload( $fileUpload, '51' );
+
+$post_data = array(
+'post_title' => 'Картинка',
+'post_content'  => 'content',
+'post_status'   => 'publish',
+'post_author'   => 1,
+'post_type'     => 'attachment',
+'post_mime_type'    => 'image/jpeg',
+);
+//$post_img = wp_insert_post(wp_slash($post_data));
+
+//$upload_handler('wp-content/uploads/photosite/galleryhh_'.$post->ID);
 
             if ( $movefile ) {
             return true;
@@ -319,6 +319,7 @@ $upload_handler = new UploadHandler($upload_dir['baseurl']);
         }
     }
 }
+
 
 }
 //add_action('save_page', 'gallery_fields_update', 0);
