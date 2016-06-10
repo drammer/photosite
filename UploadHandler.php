@@ -10,8 +10,6 @@
  * http://www.opensource.org/licenses/MIT
  */
 
-//require('photosite.php');
-
 class UploadHandler
 {
     //var $img_value ;
