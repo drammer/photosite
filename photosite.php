@@ -27,7 +27,7 @@ Author email: drammer.g@gmail.com
 //<!--        var MyAjaxUrlArr = {"ajaxurl":"http:\/\/ubc-corp.com\/wp-admin\/admin-ajax.php"};-->
 //<!--        var MyAjaxUrl = "http:\/\/ubc-corp.com\/wp-admin\/admin-ajax.php";-->
 //<!--    </script>-->
- //}
+//}
 
 function wptuts_scripts_with_jquery()
 {
@@ -45,15 +45,15 @@ function admin_wptuts_scripts_with_jquery()
     wp_register_script( 'upload-script', plugins_url( '/js/upload-script.js', __FILE__ ) );
     //wp_register_script( 'widget', plugins_url( '/js/jquery.ui.widget.js', __FILE__ ), array('jQuery') );
     //wp_register_script( 'transport', plugins_url( '/js/jquery.iframe-transport.js', __FILE__ ), array('jQuery') );
-   // wp_register_script( 'fileupload', plugins_url( '/js/jquery.fileupload.js', __FILE__ ), array('jQuery') );
+    // wp_register_script( 'fileupload', plugins_url( '/js/jquery.fileupload.js', __FILE__ ), array('jQuery') );
     //wp_register_script( 'fileupload-process', plugins_url( '/js/jquery.fileupload-process.js', __FILE__ ), array('jQuery') );
     //wp_register_script( 'fileupload-image', plugins_url( '/js/jquery.fileupload-image.js', __FILE__ ), array('jQuery') );
     //wp_register_script( 'fileupload-ui', plugins_url( '/js/jquery.fileupload-ui.js', __FILE__ ), array('jQuery') );
     //wp_enqueue_script( 'scriptiva' );
 //    wp_enqueue_script( 'widget' );
     //wp_enqueue_script( 'transport' );
-  //  wp_enqueue_script( 'fileupload' );
-   // wp_enqueue_script( 'fileupload-process' );
+    //  wp_enqueue_script( 'fileupload' );
+    // wp_enqueue_script( 'fileupload-process' );
     //wp_enqueue_script( 'fileupload-image' );
     //wp_enqueue_script( 'fileupload-ui' );
     wp_enqueue_script( 'upload-script' );
@@ -98,228 +98,126 @@ function gallery_fields(){
 add_action('add_meta_boxes', 'gallery_fields', 1);
 
 function gallery_box_func($post){  ?>
-</form>
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
-    <form id="fileupload" class="fileupload" action="" method="POST" enctype="multipart/form-data">
-        <!-- Redirect browsers with JavaScript disabled to the origin page -->
-        <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript>
-        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-        <div class="row fileupload-buttonbar">
-        <?php wp_nonce_field( 'files', 'fileup_nonce' ); ?>
-            <div class="col-lg-7">
-                <!-- The fileinput-button span is used to style the file input field as button -->
-                <span class="btn btn-success fileinput-button">
-                    <i class="glyphicon glyphicon-plus"></i>
-                    <span>Add files...</span>
-                    <input type="file" name="files[]" multiple>
-                </span>
-                <button type="submit" class="btn btn-primary start">
-                    <i class="glyphicon glyphicon-upload"></i>
-                    <span>Start upload</span>
-                </button>
-                <button type="reset" class="btn btn-warning cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel upload</span>
-                </button>
-                <button type="button" class="btn btn-danger delete">
-                    <i class="glyphicon glyphicon-trash"></i>
-                    <span>Delete</span>
-                </button>
-                <input type="checkbox" class="toggle">
-                <!-- The global file processing state -->
-                <span class="fileupload-process"></span>
-            </div>
-            <!-- The global progress state -->
-            <div class="col-lg-5 fileupload-progress fade">
-                <!-- The global progress bar -->
-                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
-                </div>
-                <!-- The extended global progress state -->
-                <div class="progress-extended">&nbsp;</div>
-            </div>
-        </div>
-        <!-- The table listing the files available for upload/download -->
-        <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
-    </form>
-    <!-- The template to display files available for upload -->
 
-<!-- The blueimp Gallery widget -->
-<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">
-    <div class="slides"></div>
-    <h3 class="title"></h3>
-    <a class="prev">‹</a>
-    <a class="next">›</a>
-    <a class="close">×</a>
-    <a class="play-pause"></a>
-    <ol class="indicator"></ol>
-</div>
-<!-- The template to display files available for upload -->
-<script id="template-upload" type="text/x-tmpl">
-{% for (var i=0, file; file=o.files[i]; i++) { %}
-    <tr class="template-upload fade">
-        <td>
-            <span class="preview"></span>
-        </td>
-        <td>
-            <p class="name">{%=file.name%}</p>
-            <strong class="error text-danger"></strong>
-        </td>
-        <td>
-            <p class="size">Processing...</p>
-            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
-        </td>
-        <td>
-            {% if (!i && !o.options.autoUpload) { %}
-                <button class="btn btn-primary start" disabled>
-                    <i class="glyphicon glyphicon-upload"></i>
-                    <span>Start</span>
-                </button>
-            {% } %}
-            {% if (!i) { %}
-                <button class="btn btn-warning cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel</span>
-                </button>
-            {% } %}
-        </td>
-    </tr>
-{% } %}
-</script>
-<!-- The template to display files available for download -->
-<script id="template-download" type="text/x-tmpl">
-{% for (var i=0, file; file=o.files[i]; i++) { %}
-    <tr class="template-download fade">
-        <td>
-            <span class="preview">
-                {% if (file.thumbnailUrl) { %}
-                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
-                {% } %}
-            </span>
-        </td>
-        <td>
-            <p class="name">
-                {% if (file.url) { %}
-                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
-                {% } else { %}
-                    <span>{%=file.name%}</span>
-                {% } %}
-            </p>
-            {% if (file.error) { %}
-                <div><span class="label label-danger">Error</span> {%=file.error%}</div>
-            {% } %}
-        </td>
-        <td>
-            <span class="size">{%=o.formatFileSize(file.size)%}</span>
-        </td>
-        <td>
-            {% if (file.deleteUrl) { %}
-                <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
-                    <i class="glyphicon glyphicon-trash"></i>
-                    <span>Delete</span>
-                </button>
-                <input type="checkbox" name="delete" value="1" class="toggle">
-            {% } else { %}
-                <button class="btn btn-warning cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel</span>
-                </button>
-            {% } %}
-        </td>
-    </tr>
-{% } %}
-</script>
+    <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="<?=plugins_url()?>/photosite/js/jquery.ui.widget.js"></script>
-<script src="//blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
-<script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
-<script src="//blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+    <!-- elFinder CSS (REQUIRED) -->
+    <link rel="stylesheet" type="text/css" href="<?=plugins_url()?>/photosite/library/finder/css/elfinder.min.css">
+    <link rel="stylesheet" type="text/css" href="<?=plugins_url()?>/photosite/library/finder/css/theme.css">
 
-<!-- The basic File Upload plugin -->
-<script src="<?=plugins_url()?>/photosite/js/jquery.fileupload.js"></script>
-<!-- The File Upload processing plugin -->
-<script src="<?=plugins_url()?>/photosite/js/jquery.fileupload-process.js"></script>
+    <!-- elFinder JS (REQUIRED) -->
+    <script src="<?=plugins_url()?>/photosite/finder/js/elfinder.full.js"></script>
 
-<script src="<?=plugins_url()?>/photosite/js/jquery.fileupload-image.js"></script>
-<script src="<?=plugins_url()?>/photosite/js/jquery.fileupload-ui.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        (function($){
+//			// Documentation for client options:
+//			// https://github.com/Studio-42/elFinder/wiki/Client-configuration-options
+//			$(document).ready(function() {
+//				$('#elfinder').elfinder({
+//					url : '<?//=plugins_url()?>///photosite/finder/php/connector.minimal.php'  // connector URL (REQUIRED)
+//					// , lang: 'ru'                    // language (OPTIONAL)
+//				});
+//			});
+//
+////
+////    $('.elfinder-cwd-file').click(function(){
+////        var $im = $(this);
+////        $('<div />').dialogelfinder({
+////            url: 'http://elenatkachenko.com.ua/wp-content/plugins/photosite/finder/php/connector.minimal.php',
+////            commandsOptions: {
+////                getfile: {
+////                    oncomplete: 'destroy' // destroy elFinder after file selection
+////                }
+////            },
+////            getFileCallback: function(path){ console.log( $im.val(path) ); }
+////        });
+////        console.log( $im.val(path));
+////        return false;
+////    });
+////
+//
 
+            $('#elfinder_button').click(function() {
+                $('<div id="editor" />').dialogelfinder({
+                    url : 'http://elenatkachenko.com.ua/wp-content/plugins/photosite/library/finder/php/connector.minimal.php',
+                    width: '80%',
+                    height: '600px',
+                    getFileCallback: function(file) {
+                        var filePath = file; //file contains the relative url.
+                        //console.log(filePath);
+                        var imgPath = "<img src = '"+filePath.url+"'/>";
+                        $('#selectedImages').append(imgPath); //add the image to a div so you can see the selected images
+                        $('#editor').remove(); //close the window after image is selected
+                    }
+                });
+            });
 
-<script>
-(function($) {
+        })(jQuery)
 
-    jQuery(function () {
-        'use strict';
+    </script>
 
-        // Initialize the jQuery File Upload widget:
-        jQuery('#fileupload').fileupload({
-            // Uncomment the following to send cross-domain cookies:
-            //xhrFields: {withCredentials: true},
-            url: ''
-        });
-    });
-})(jQuery)
-</script>
+    <input type = "text" name = "galleryimages" id = "galleryimages" style = "display:none"/>
+    <a href = "javascript:void(0)" id = "elfinder_button">Add Gallery Images</a>
+    <div id = "selectedImages">
+
+    </div>
+
+    <div id="elfinder"></div>
+
 
     <?php
-    error_reporting(E_ALL | E_STRICT);
 
-//require('UploadHandler.php');
-//$upload_handler = new UploadHandler('wp-content/uploads/photosite/gallery_'.$post->ID);
-if(isset($_POST['fileup_nonce'])){
+    error_reporting(E_ALL | E_STRICT);
+    require('UploadHandler.php');
+
+    $uploadImage = new UploadHandler($post);
+    if(isset($_POST['fileup_nonce'])){
 
 //die();
-    if( wp_verify_nonce( $_POST['fileup_nonce'], 'files' ) ){
-        if ( ! function_exists( 'wp_handle_upload' ) )
-            require_once( ABSPATH . 'wp-admin/includes/file.php' );
+        if( wp_verify_nonce( $_POST['fileup_nonce'], 'files' ) ){
+            if ( ! function_exists( 'wp_handle_upload' ) )
+                require_once( ABSPATH . 'wp-admin/includes/file.php' );
 
-        $file = &$_FILES['files'];
-        $overrides = array( 'test_form' => false );
-        for($i=0; $i< count($file['name']); $i++){
-            require_once( ABSPATH . 'wp-admin/includes/image.php' );
-            require_once( ABSPATH . 'wp-admin/includes/file.php' );
-            require_once( ABSPATH . 'wp-admin/includes/media.php' );
+            $file = &$_FILES['files'];
+            $overrides = array( 'test_form' => false );
+            for($i=0; $i< count($file['name']); $i++){
+                require_once( ABSPATH . 'wp-admin/includes/image.php' );
+                require_once( ABSPATH . 'wp-admin/includes/file.php' );
+                require_once( ABSPATH . 'wp-admin/includes/media.php' );
 
-            $fileUpload = array();
-            $fileUpload['name']  = $file['name'][$i];
-            $fileUpload['type']  = $file['type'][$i];
-            $fileUpload['size']  = $file['size'][$i];
-            $fileUpload['tmp_name']  = $file['tmp_name'][$i];
+                $fileUpload = array();
+                $fileUpload['name']  = $file['name'][$i];
+                $fileUpload['type']  = $file['type'][$i];
+                $fileUpload['size']  = $file['size'][$i];
+                $fileUpload['tmp_name']  = $file['tmp_name'][$i];
+                //var_dump($fileUpload); echo $_POST['post_id'];
 
-            define( 'UPLOADS', 'wp-content/uploads/photosite/gallery_'.$post->ID );
-            $upload_dir = wp_upload_dir( 'wp-content/uploads/photosite/gallery_post_'.$post->ID );
+//            $upload_dir_name = 'test';
+//            $upload_dir = wp_upload_dir();
+//            $user_dirname = $upload_dir['basedir'].'/gallery_51';
+//            if ( ! file_exists( $user_dirname ) ) {
+//                wp_mkdir_p( $user_dirname );
+//            }
+
+                define( 'UPLOADS', 'wp-content/uploads/photosite/gallery_'.$post->ID );
+                $upload_dir = wp_upload_dir( 'wp-content/uploads/photosite/gallery_'.$post->ID );
+                //echo $upload_dir['baseurl'];
 
 
+                $movefile = media_handle_sideload( $fileUpload, '51' );
 
-
-            $movefile = media_handle_sideload( $fileUpload, '51' );
-
-$post_data = array(
-'post_title' => 'Картинка',
-'post_content'  => 'content',
-'post_status'   => 'publish',
-'post_author'   => 1,
-'post_type'     => 'attachment',
-'post_mime_type'    => 'image/jpeg',
-);
-//$post_img = wp_insert_post(wp_slash($post_data));
-
-//$upload_handler('wp-content/uploads/photosite/galleryhh_'.$post->ID);
-
-            if ( $movefile ) {
-            return true;
-                //echo "Файл был успешно загружен.\n";
-                //print_r( $movefile );
-            } else {
-                //echo "Возможны атаки при загрузке файла!\n";
+                if ( $movefile ) {
+                    return true;
+                    //echo "Файл был успешно загружен.\n";
+                    //print_r( $movefile );
+                } else {
+                    //echo "Возможны атаки при загрузке файла!\n";
+                }
             }
         }
     }
-}
-
 
 }
 //add_action('save_page', 'gallery_fields_update', 0);
