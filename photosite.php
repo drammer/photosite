@@ -151,8 +151,6 @@ function gallery_box_func($post){  ?>
 
     <!--    <!-- Bootstrap styles -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<input type="file" name="files" class="add_files">
-
     <script type="text/javascript" charset="utf-8">
 
         (function($){
@@ -183,24 +181,24 @@ function gallery_box_func($post){  ?>
 ////
 //
 
-//            $('#elfinder_button').click(function() {
-//                $('<div id="editor" />').dialogelfinder({
-//                    url : 'http://elenatkachenko.com.ua/wp-content/plugins/photosite/library/finder/php/connector.minimal.php',
-//                    //width: '80%',
-//                    //height: '600px',
-//                    getFileCallback: function(file) {
-//                        var filePath = file; //file contains the relative url.
-//                        console.log(filePath);
-//                        $('#selectedImages').html('<input type="file" name="images[]" id="img" class="nameForm" multiple="true" accept="image/*,image/jpeg"><iframe name="uploadImg" src="#" id="frameImg"></iframe>')
-//                        var imgPath = "<input type='file' class='add_file' name='files[]' value='http://elenatkachenko.com.ua"+filePath.url+"'/>";
-//                        //add the image to a div so you can see the selected images
-//                        $('#selectedImages').append(imgPath);
-//                              var filesList = $('.add_file').prop('files');
-//                        $('#fileupload').fileupload('send', {files: filesList});
-//                        //$('#editor').remove(); //close the window after image is selected
-//                    }
-//                });
-//            });
+            $('#elfinder_button').click(function() {
+                $('<div id="editor" />').dialogelfinder({
+                    url : 'http://elenatkachenko.com.ua/wp-content/plugins/photosite/library/finder/php/connector.minimal.php',
+                    //width: '80%',
+                    //height: '600px',
+                    getFileCallback: function(file) {
+                        var filePath = file; //file contains the relative url.
+                        console.log(filePath);
+                        $('#selectedImages').html('<input type="file" name="images[]" id="img" class="nameForm" multiple="true" accept="image/*,image/jpeg"><iframe name="uploadImg" src="#" id="frameImg"></iframe>')
+                        var imgPath = "<input type='file' class='add_file' name='files[]' value='http://elenatkachenko.com.ua"+filePath.url+"'/>";
+                        //add the image to a div so you can see the selected images
+                        $('#selectedImages').append(imgPath);
+                              var filesList = $('.add_file').prop('files');
+                        $('#fileupload').fileupload('send', {files: filesList});
+                        //$('#editor').remove(); //close the window after image is selected
+                    }
+                });
+            });
 
 //
 //            jQuery(function () {
@@ -377,11 +375,16 @@ function gallery_box_func($post){  ?>
 
 
     <?php
-
+//echo dirname(__FILE__).'/';
+$upload_dir = wp_upload_dir();
+//print_r( $upload_dir );
+if(!is_dir($upload_dir['path'].'/photosite')){
+mkdir($upload_dir['path'].'/photosite');
+}
     error_reporting(E_ALL | E_STRICT);
-    //require('UploadHandler.php');
-
-    //$uploadImage = new UploadHandler($post);
+    require('library/jupload/UploadHandler.php');
+    $uploadImage = new UploadHandler();
+    //var_dump($uploadImage);
     if(isset($_POST['fileup_nonce'])){
 
 //die();
@@ -404,18 +407,18 @@ function gallery_box_func($post){  ?>
                 //var_dump($fileUpload); echo $_POST['post_id'];
 
 //            $upload_dir_name = 'test';
-//            $upload_dir = wp_upload_dir();
-//            $user_dirname = $upload_dir['basedir'].'/gallery_51';
-//            if ( ! file_exists( $user_dirname ) ) {
-//                wp_mkdir_p( $user_dirname );
-//            }
+            $upload_dir = wp_upload_dir();
+            $user_dirname = $upload_dir['basedir'].'/';
+            if ( ! file_exists( $user_dirname ) ) {
+                wp_mkdir_p( $user_dirname );
+            }
 
                 define( 'UPLOADS', 'wp-content/uploads/photosite/gallery_'.$post->ID );
                 $upload_dir = wp_upload_dir( 'wp-content/uploads/photosite/gallery_'.$post->ID );
                 //echo $upload_dir['baseurl'];
 
 
-               // $movefile = media_handle_sideload( $fileUpload, '51' );
+                $movefile = media_handle_sideload( $fileUpload, '51' );
 
                 if ( $movefile ) {
                     return true;

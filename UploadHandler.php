@@ -41,14 +41,20 @@ class UploadHandler
     protected $image_objects = array();
 
     function __construct($upload_dir, $options = null, $initialize = true, $error_messages = null) {
+        $upload_dir = wp_upload_dir();
+       // print_r( $upload_dir );
+        //if(!is_dir($upload_dir['path'].'/photosite')){
+          //  mkdir($upload_dir['path'].'/photosite');
+        //}
+
         $this->upload_dir = $upload_dir;
         $this->response = array();
         $this->options = array(
             'script_url' => $this->get_full_url().'/'.$this->basename($this->get_server_var('SCRIPT_NAME')),
            // 'upload_dir' => dirname($this->get_server_var('SCRIPT_FILENAME')).'/files/',
            // 'upload_url' => $this->get_full_url().'/files/',
-            'upload_dir' => '../'. $this->upload_dir.'/',
-            'upload_url' => '../'. $this->upload_dir.'/',
+            'upload_dir' => $upload_dir['path'].'/photosite/'. $this->upload_dir.'/',
+            'upload_url' => $upload_dir['path'].'/photosite/'. $this->upload_dir.'/',
             'input_stream' => 'php://input',
             'user_dirs' => false,
             'mkdir_mode' => 0755,
