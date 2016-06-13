@@ -93,13 +93,22 @@ add_action('init', 'true_register_post_type_init');
 
 
 function gallery_images_fields(){
-    add_meta_box('gallery_image_fields', 'All photo in gallery', 'gallery_images_func', 'photosite', 'normal', 'high');
+    add_meta_box('gallery_images_fields', 'All photo in gallery', 'gallery_images_func', 'photosite', 'normal', 'high');
 }
 
 add_action('add_meta_boxes', 'gallery_images_fields', 1);
 
 function gallery_images_func($post){
-echo 'gallery_images_func';
+$attachment = get_attached_media('image', $post->ID);
+?>
+</form>
+<!--      <form id="image_spost" class="image-post" action="" method="POST" enctype="multipart/form-data">-->
+<!--         <!-- Redirect browsers with JavaScript disabled to the origin page -->-->
+<!--         <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript>-->
+<!--         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->-->
+<!--         <div class="row fileupload-buttonbar">-->
+<!--         --><?php //wp_nonce_field( 'files', 'fileup_nonce' ); ?>
+    <?php
 }
 
 function gallery_fields(){
@@ -236,8 +245,14 @@ function gallery_box_func($post){  ?>
 
         });
     </script>
-</form>
-
+<!--</form>-->
+<!---->
+<!-- <form id="featured_upload" method="post" action="#" enctype="multipart/form-data">-->
+<!--	<input type="file" name="my_image_upload" id="my_image_upload"  multiple="false" />-->
+<!--	<input type="hidden" name="post_id" id="post_id" value="55" />-->
+<!--	--><?php //wp_nonce_field( 'my_image_upload', 'my_image_upload_nonce' ); ?>
+<!--	<input id="submit_my_image_upload" name="submit_my_image_upload" type="submit" value="Upload" />-->
+<!--</form>-->
 
  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
  <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
@@ -371,12 +386,7 @@ function gallery_box_func($post){  ?>
  {% } %}
  </script>
 
-
-
-
-
-
-    <input type = "text" name = "galleryimages" id = "galleryimages" style = "display:none"/>
+<input type = "text" name = "galleryimages" id = "galleryimages" style = "display:none"/>
     <a href = "javascript:void(0)" id = "elfinder_button">Add Gallery Images</a>
     <div id = "selectedImages">
 
@@ -448,7 +458,29 @@ add_action('wp_ajax_photosite_action', 'gallery_fields_update'); //работа�
 add_action('wp_ajax_nopriv_photosite_action', 'gallery_fields_update'); //работает для неавторизованных
 
 function gallery_fields_update( $post_id){
+//// если вдруг мы во фронте
+//require_once(ABSPATH .'wp-admin/includes/media.php');
+//require_once(ABSPATH .'wp-admin/includes/file.php');
+//require_once(ABSPATH .'wp-admin/includes/image.php');
+//
+//$url = 'http://s.w.org/style/images/wp-header-logo.png';
+////$post_id = 3061;
+//$desc = "Логотип WordPress";
+//
+//$img_tag = media_sideload_image( $url, $post_id, $desc );
+}
 
+function gallery_images_fields_update( $post_id){
+// если вдруг мы во фронте
+require_once(ABSPATH .'wp-admin/includes/media.php');
+require_once(ABSPATH .'wp-admin/includes/file.php');
+require_once(ABSPATH .'wp-admin/includes/image.php');
+
+$url = 'http://s.w.org/style/images/wp-header-logo.png';
+//$post_id = 3061;
+$desc = "Логотип WordPress";
+
+$img_tag = media_sideload_image( $url, $post_id, $desc );
 }
 
 ?>
