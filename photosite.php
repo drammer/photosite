@@ -91,6 +91,17 @@ function true_register_post_type_init(){
 }
 add_action('init', 'true_register_post_type_init');
 
+
+function gallery_images_fields(){
+    add_meta_box('gallery_image_fields', 'All photo in gallery', 'gallery_images_func', 'photosite', 'normal', 'high');
+}
+
+add_action('add_meta_boxes', 'gallery_images_fields', 1);
+
+function gallery_images_func($post){
+echo 'gallery_images_func';
+}
+
 function gallery_fields(){
     add_meta_box('gallery_fields', 'Add photo in gallery', 'gallery_box_func', 'photosite', 'normal', 'high');
 }
