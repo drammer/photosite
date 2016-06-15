@@ -1,3 +1,60 @@
+span.prev-box-photo {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    height: 110px;
+    width: 110px;
+    margin: 0 5px 5px 0;
+}
+.prev_add_photo.new-photo{
+    opacity: 0.8;
+}
+.trash {
+    position: absolute;
+    right: 10px;
+    bottom: -40px;
+    width: 40px;
+    height: 39px;
+    cursor: pointer;
+    background-image: url(../images/trash-man.png);
+    background-color: rgba(255, 255, 255, 0.72);
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10%;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -ms-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+}
+.prev-box-photo:hover .trash{
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -ms-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+    bottom: 0;
+}
+
+/* SORTABLE */
+#sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+#sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+#sortable li span { position: absolute; margin-left: -1.3em; }
+/* END */
+div#new_photo_block {
+    margin-top: 25px;
+    border-top: 1px solid grey;
+    padding: 10px 0 0;
+    overflow: hidden;
+    position: relative;
+}
+div#new_photo_block:before {
+    content: 'New photo';
+    position: absolute;
+}
+.prev_add_photo {
+    height: 110px;
+}
 #dropZone {
     color: #555;
     font-size: 18px;

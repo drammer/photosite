@@ -133,16 +133,30 @@ function gallery_images_fields(){
 add_action('add_meta_boxes', 'gallery_images_fields', 1);
 
 function gallery_images_func($post){
-$attachment = get_attached_media('image', $post->ID);
+
+$args = array(
+        'post_status'    => 'inherit',
+        'post_type'      => 'attachment', // Тип: аттач.
+        'post_parent'    => $post->ID, // Родительский постовой.
+        'post_mime_type' => array('image/jpeg','image/png'), // Картинка.
+        'order'          => 'DESC' // Сортировка ASC или DESC?
+    );
+
+$query = new WP_Query;
+$attachments = $query->query($args);
+//$attachment = get_attached_media('image', $post->ID);
 ?>
 
  <input type="hidden" name="gallery_images_fields" value="<?php echo wp_create_nonce(__FILE__); ?>" />
  <div id="add_photo_block">
- <?php if(!empty($attachment)){
- foreach($attachment as $photo){ ?>
-   <img src="<?php echo wp_get_attachment_image_url($photo->ID, 'thumbnail')?>" class="prev_add_photo">
+ <?php if(!empty($attachments)){
+ foreach($attachments as $photo){ ?>
+   <span class="prev-box-photo" data-name="<?=$photo->ID?>"><img src="<?php echo wp_get_attachment_image_url($photo->ID, 'thumbnail')?>" class="prev_add_photo"><i class="trash id-photo"></i><b class="in_front"></b></span>
 <?php }
 }?>
+</div>
+<div id="new_photo_block">
+
 </div>
 
     <?php
@@ -296,9 +310,9 @@ function gallery_box_func($post){  ?>
 
 
     <?php
-    error_reporting(E_ALL | E_STRICT);
-    require('library/jupload/UploadHandler.php');
-    $uploadImage = new UploadHandler(); var_dump($post);
+//    error_reporting(E_ALL | E_STRICT);
+//    //require('library/jupload/UploadHandler.php');
+//    //$uploadImage = new UploadHandler();
 
 }
 //add_action('save_page', 'gallery_fields_update', 0);
@@ -319,13 +333,59 @@ $desc = "Логотип WordPress";
 if(isset($_POST['add_photo'])){
     $attachArr = $_POST['add_photo'];
 
-        foreach($attachArr as $urlPhoto){
+    foreach($attachArr as $file){
+global $debug;
+$tmp = download_url($file);
+
+preg_match('/[^?]+\.(jpg|jpe|jpeg|gif|png)/i', $file, $matches);
+$file_array['name'] = basename( $matches[0] );
+$file_array['tmp_name'] = $tmp;
+    if( is_wp_error( $tmp) ){
+        @unlink( $file_array['tmp_name']);
+        $file_array['tmp_name'] = '';
+        if($debug) echo 'Ошибка загрузки файла';
+    }
+    if($debug){
+        echo 'File array:<br />';
+        var_dump($file_array);
+        echo '<br /> Post id: ' . $post_id . '<br />';
+    }
+    $id = media_handle_sideload( $file_array, $post_id, $desc);
+
+    if( is_wp_error($id)){
+    @unlink( $file_array['tmp_name']);
+    var_dump( $id->get_error_messages() );
+    }
+    else{
+
+            add_post_meta($post_id, 'in_front', $id);// or update_post_meta($post_id, 'in_front', $id);
+
+    }
+
+    @unlink( $file_array['tmp_name']);
+}
+//рабочий вариант
+        //foreach($attachArr as $urlPhoto){
         //var_dump($urlPhoto);
         //die();
-            $img_tag = media_sideload_image( $urlPhoto, $post_id, $desc );
-            var_dump($img_tag);
-            $die();
-        }
+          //  $img_tag = media_sideload_image( $urlPhoto, $post_id, $desc );
+            //var_dump($img_tag);
+            //$die();
+       // }
+
+       foreach($attachArr as $urlPhoto){
+
+       }
+
+    }
+
+    if(isset($_POST['del_photo'])){
+    $delAttach = $_POST['del_photo'];
+
+    foreach($delAttach as $photo){
+    wp_delete_post($photo);
+    }
+
     }
 }
 add_action('save_post', 'gallery_images_fields_update' );
