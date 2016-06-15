@@ -41,9 +41,12 @@ function admin_wptuts_scripts_with_jquery()
 {
     // Register the script like this for a plugin:
     wp_enqueue_style( 'photosite-style', plugins_url('/photosite/css/photosite-style.css') );
-    wp_enqueue_style( 'jquery-ui-style', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css') );
-    wp_enqueue_style( 'bootstrap-style', '//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css') );
-    wp_enqueue_style( 'blueimp-gallery', '///blueimp.github.io/Gallery/css/blueimp-gallery.min.css') );
+    wp_enqueue_style( 'jquery-ui-style', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css');
+    wp_enqueue_style( 'bootstrap-style', '//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css' );
+    wp_enqueue_style( 'blueimp-gallery', '///blueimp.github.io/Gallery/css/blueimp-gallery.min.css' );
+
+    wp_enqueue_style( 'elfinder-style', plugins_url('/photosite/library/finder/css/elfinder.min.css') );
+    wp_enqueue_style( 'elfinder-theme-style', plugins_url('/photosite/library/finder/css/theme.css') );
 
     wp_register_script( 'jquery-ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js');
     wp_register_script( 'tmpl', '//blueimp.github.io/JavaScript-Templates/js/tmpl.min.js');
@@ -53,28 +56,42 @@ function admin_wptuts_scripts_with_jquery()
     wp_register_script( 'blueimp-gallery', '//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js');
 
 
-    wp_enqueue_style( 'elfinder-style', plugins_url('/photosite/library/finder/css/elfinder.min.css') );
-    wp_enqueue_style( 'elfinder-theme-style', plugins_url('/photosite/library/finder/css/theme.css') );
-
-
-    wp_register_script( 'upload-script', plugins_url( '/js/upload-script.js', __FILE__ ) , array('jquery') );
     wp_register_script( 'widget', plugins_url( '/library/jupload/js/jquery.ui.widget.js', __FILE__ ), array('jquery') );
     wp_register_script( 'transport', plugins_url( '/library/jupload/js/jquery.iframe-transport.js', __FILE__ ), array('jquery') );
-     wp_register_script( 'fileupload', plugins_url( '/library/jupload/js/jquery.fileupload.js', __FILE__ ), array('jquery') );
+    wp_register_script( 'fileupload', plugins_url( '/library/jupload/js/jquery.fileupload.js', __FILE__ ), array('jquery') );
     wp_register_script( 'fileupload-process', plugins_url( '/library/jupload/js/jquery.fileupload-process.js', __FILE__ ), array('jquery') );
     wp_register_script( 'fileupload-image', plugins_url( '/library/jupload/js/jquery.fileupload-image.js', __FILE__ ), array('jquery') );
     wp_register_script( 'fileupload-ui', plugins_url( '/library/jupload/js/jquery.fileupload-ui.js', __FILE__ ), array('jquery') );
     wp_register_script( 'fileupload-validate', plugins_url( '/library/jupload/js/jquery.fileupload-validate.js', __FILE__ ), array('jquery') );
-    wp_register_script( 'elfinder', plugins_url( '/photosite/library/finder/js/elfinder.full.js', __FILE__ ), array('jquery') );
-    //wp_enqueue_script( 'scriptiva' );
-//    wp_enqueue_script( 'widget' );
-    //wp_enqueue_script( 'transport' );
-    //  wp_enqueue_script( 'fileupload' );
-    // wp_enqueue_script( 'fileupload-process' );
-    //wp_enqueue_script( 'fileupload-image' );
-    //wp_enqueue_script( 'fileupload-ui' );
+    wp_register_script( 'elfinder', plugins_url( '/library/finder/js/elfinder.full.js', __FILE__ ), array('jquery') );
+
+     wp_register_script( 'upload-script', plugins_url( '/js/upload-script.js', __FILE__ ) , array('jquery') );
+//add JS
+
+    wp_enqueue_script( 'jquery-ui' );
+    wp_enqueue_script( 'tmpl' );
+    wp_enqueue_script( 'load-image' );
+    wp_enqueue_script( 'canvas-image' );
+    wp_enqueue_script( 'bootstrap-js' );
+    wp_enqueue_script( 'blueimp-gallery' );
+    wp_enqueue_script( 'widget' );
+    wp_enqueue_script( 'transport' );
+    wp_enqueue_script( 'fileupload' );
+    wp_enqueue_script( 'fileupload-process' );
+    wp_enqueue_script( 'fileupload-image' );
+    wp_enqueue_script( 'fileupload-ui' );
+    wp_enqueue_script( 'fileupload-validate' );
+    wp_enqueue_script( 'elfinder' );
     wp_enqueue_script( 'upload-script' );
-    //wp_enqueue_style( 'photosite-style' );
+
+//Add CSS
+
+   wp_enqueue_style( 'photosite-style' );
+   wp_enqueue_style( 'jquery-ui-style' );
+   wp_enqueue_style( 'bootstrap-style' );
+   wp_enqueue_style( 'blueimp-gallery' );
+   wp_enqueue_style( 'elfinder-style' );
+   wp_enqueue_style( 'elfinder-theme-style' );
 }
 add_action( 'admin_enqueue_scripts', 'admin_wptuts_scripts_with_jquery' );
 
@@ -118,13 +135,16 @@ add_action('add_meta_boxes', 'gallery_images_fields', 1);
 function gallery_images_func($post){
 $attachment = get_attached_media('image', $post->ID);
 ?>
-</form>
-<!--      <form id="image_spost" class="image-post" action="" method="POST" enctype="multipart/form-data">-->
-<!--         <!-- Redirect browsers with JavaScript disabled to the origin page -->
-<!--         <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript>-->
-<!--         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-<!--         <div class="row fileupload-buttonbar">-->
-<!--         --><?php //wp_nonce_field( 'files', 'fileup_nonce' ); ?>
+
+ <input type="hidden" name="gallery_images_fields" value="<?php echo wp_create_nonce(__FILE__); ?>" />
+ <div id="add_photo_block">
+ <?php if(!empty($attachment)){
+ foreach($attachment as $photo){ ?>
+   <img src="<?php echo wp_get_attachment_image_url($photo->ID, 'thumbnail')?>" class="prev_add_photo">
+<?php }
+}?>
+</div>
+
     <?php
 }
 
@@ -135,144 +155,7 @@ function gallery_fields(){
 add_action('add_meta_boxes', 'gallery_fields', 1);
 
 function gallery_box_func($post){  ?>
-
-<!--    <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">-->
-<!--    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>-->
-<!--    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>-->
-
-    <!-- elFinder CSS (REQUIRED) -->
-<!--    <link rel="stylesheet" type="text/css" href="--><?//=plugins_url()?><!--/photosite/library/finder/css/elfinder.min.css">-->
-<!--    <link rel="stylesheet" type="text/css" href="--><?//=plugins_url()?><!--/photosite/library/finder/css/theme.css">-->
-
-    <!-- elFinder JS (REQUIRED) -->
-<!--    <script src="--><?//=plugins_url()?><!--/photosite/library/finder/js/elfinder.full.js"></script>-->
-
-<!--  jQuery Upload JS  -->
-
-<!--    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
-    <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
-<!--    <script src="--><?//=plugins_url()?><!--/photosite/library/jupload/js/jquery.ui.widget.js"></script>-->
-    <!-- The Templates plugin is included to render the upload/download listings -->
-<!--    <script src="//blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>-->
-    <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
-<!--    <script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>-->
-    <!-- The Canvas to Blob plugin is included for image resizing functionality -->
-<!--    <script src="//blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>-->
-    <!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
-<!--    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
-    <!-- blueimp Gallery script -->
-<!--    <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>-->
-    <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-<!--    <script src="--><?//=plugins_url()?><!--/photosite/library/jupload/js/jquery.iframe-transport.js"></script>-->
-    <!-- The basic File Upload plugin -->
-<!--    <script src="--><?//=plugins_url()?><!--/photosite/library/jupload/js/jquery.fileupload.js"></script>-->
-    <!-- The File Upload processing plugin -->
-<!--    <script src="--><?//=plugins_url()?><!--/photosite/library/jupload/js/jquery.fileupload-process.js"></script>-->
-    <!-- The File Upload image preview & resize plugin -->
-<!--    <script src="--><?//=plugins_url()?><!--/photosite/library/jupload/js/jquery.fileupload-image.js"></script>-->
-    <!-- The File Upload audio preview plugin -->
-    <!-- <script src="js/jquery.fileupload-audio.js"></script> -->
-    <!-- The File Upload video preview plugin -->
-    <!-- <script src="js/jquery.fileupload-video.js"></script> -->
-    <!-- The File Upload validation plugin -->
-<!--    <script src="--><?//=plugins_url()?><!--/photosite/library/jupload/js/jquery.fileupload-validate.js"></script>-->
-    <!-- The File Upload user interface plugin -->
-<!--    <script src="--><?//=plugins_url()?><!--/photosite/library/jupload/js/jquery.fileupload-ui.js"></script>-->
-    <!-- The main application script -->
-    <!-- <script src="js/main.js"></script> -->
-    <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
-    <!--[if (gte IE 8)&(lt IE 10)]>
-    <script src="js/cors/jquery.xdr-transport.js"></script>
-
-
-
-    <!--    <!-- Bootstrap styles -->
-<!--    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
-    <script type="text/javascript" charset="utf-8">
-
-        (function($){
-			// Documentation for client options:
-			// https://github.com/Studio-42/elFinder/wiki/Client-configuration-options
-//			$(document).ready(function() {
-//				$('#elfinder').elfinder({
-//					url : '<?//=plugins_url()?>///photosite/library/finder/php/connector.minimal.php'  // connector URL (REQUIRED)
-//					// , lang: 'ru'                    // language (OPTIONAL)
-//				});
-//			});
-//
-////
-////    $('.elfinder-cwd-file').click(function(){
-////        var $im = $(this);
-////        $('<div />').dialogelfinder({
-////            url: 'http://elenatkachenko.com.ua/wp-content/plugins/photosite/finder/php/connector.minimal.php',
-////            commandsOptions: {
-////                getfile: {
-////                    oncomplete: 'destroy' // destroy elFinder after file selection
-////                }
-////            },
-////            getFileCallback: function(path){ console.log( $im.val(path) ); }
-////        });
-////        console.log( $im.val(path));
-////        return false;
-////    });
-////
-//
-
-            $('#elfinder_button').click(function() {
-                $('<div id="editor" />').dialogelfinder({
-                    url : '<?=plugins_url()?>/photosite/library/finder/php/connector.minimal.php',
-                    //width: '80%',
-                    //height: '600px',
-                    getFileCallback: function(file) {
-                        var filePath = file; //file contains the relative url.
-                        console.log(filePath);
-                        $('#selectedImages').html('<input type="file" name="images[]" id="img" class="nameForm" multiple="true" accept="image/*,image/jpeg"><iframe name="uploadImg" src="#" id="frameImg"></iframe>')
-                        var imgPath = "<input type='file' class='add_file' name='files[]' value='http://elenatkachenko.com.ua"+filePath.url+"'/>";
-                        //add the image to a div so you can see the selected images
-                        $('#selectedImages').append(imgPath);
-                              var filesList = $('.add_file').prop('files');
-                        $('#fileupload').fileupload('send', {files: filesList});
-                        //$('#editor').remove(); //close the window after image is selected
-                    }
-                });
-            });
-
-//
-//            jQuery(function () {
-//                'use strict';
-//                // Initialize the jQuery File Upload widget:
-//                jQuery('#fileupload').fileupload({
-//                    // Uncomment the following to send cross-domain cookies:
-//                    //xhrFields: {withCredentials: true},
-//                    url: ''
-//                });
-//            });
-        })(jQuery)
-
-        $(function () {
-            'use strict';
-
-            // Initialize the jQuery File Upload widget:
-            $('#fileupload').fileupload({
-                // Uncomment the following to send cross-domain cookies:
-                //xhrFields: {withCredentials: true},
-                url: '<?php echo plugins_url()?>/photosite/library/jupload/'
-            });
-
-
-        });
-    </script>
-<!--</form>-->
-<!---->
-<!-- <form id="featured_upload" method="post" action="#" enctype="multipart/form-data">-->
-<!--	<input type="file" name="my_image_upload" id="my_image_upload"  multiple="false" />-->
-<!--	<input type="hidden" name="post_id" id="post_id" value="55" />-->
-<!--	--><?php //wp_nonce_field( 'my_image_upload', 'my_image_upload_nonce' ); ?>
-<!--	<input id="submit_my_image_upload" name="submit_my_image_upload" type="submit" value="Upload" />-->
-<!--</form>-->
-
-<!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
-<!-- <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">-->
+    </form>
      <form id="fileupload" class="fileupload" action="" method="POST" enctype="multipart/form-data">
          <!-- Redirect browsers with JavaScript disabled to the origin page -->
          <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript>
@@ -404,7 +287,7 @@ function gallery_box_func($post){  ?>
  </script>
 
 <input type = "text" name = "galleryimages" id = "galleryimages" style = "display:none"/>
-    <a href = "javascript:void(0)" id = "elfinder_button">Add Gallery Images</a>
+    <a href = "javascript:void(0)" id = "elfinder_button">Add photo from Gallery Images</a>
     <div id = "selectedImages">
 
     </div>
@@ -413,61 +296,9 @@ function gallery_box_func($post){  ?>
 
 
     <?php
-//echo dirname(__FILE__).'/';
-$upload_dir = wp_upload_dir();
-//print_r( $upload_dir );
-if(!is_dir($upload_dir['path'].'/photosite')){
-mkdir($upload_dir['path'].'/photosite');
-}
     error_reporting(E_ALL | E_STRICT);
     require('library/jupload/UploadHandler.php');
-    $uploadImage = new UploadHandler();
-    //var_dump($uploadImage);
-    if(isset($_POST['fileup_nonce'])){
-
-//die();
-        if( wp_verify_nonce( $_POST['fileup_nonce'], 'files' ) ){
-            if ( ! function_exists( 'wp_handle_upload' ) )
-                require_once( ABSPATH . 'wp-admin/includes/file.php' );
-
-            $file = &$_FILES['files'];
-            $overrides = array( 'test_form' => false );
-            for($i=0; $i< count($file['name']); $i++){
-                require_once( ABSPATH . 'wp-admin/includes/image.php' );
-                require_once( ABSPATH . 'wp-admin/includes/file.php' );
-                require_once( ABSPATH . 'wp-admin/includes/media.php' );
-
-                $fileUpload = array();
-                $fileUpload['name']  = $file['name'][$i];
-                $fileUpload['type']  = $file['type'][$i];
-                $fileUpload['size']  = $file['size'][$i];
-                $fileUpload['tmp_name']  = $file['tmp_name'][$i];
-                //var_dump($fileUpload); echo $_POST['post_id'];
-
-//            $upload_dir_name = 'test';
-            $upload_dir = wp_upload_dir();
-            $user_dirname = $upload_dir['basedir'].'/';
-            if ( ! file_exists( $user_dirname ) ) {
-                wp_mkdir_p( $user_dirname );
-            }
-
-                define( 'UPLOADS', 'wp-content/uploads/photosite/gallery_'.$post->ID );
-                $upload_dir = wp_upload_dir( 'wp-content/uploads/photosite/gallery_'.$post->ID );
-                //echo $upload_dir['baseurl'];
-
-
-                $movefile = media_handle_sideload( $fileUpload, '51' );
-
-                if ( $movefile ) {
-                    return true;
-                    //echo "Файл был успешно загружен.\n";
-                    //print_r( $movefile );
-                } else {
-                    //echo "Возможны атаки при загрузке файла!\n";
-                }
-            }
-        }
-    }
+    $uploadImage = new UploadHandler(); var_dump($post);
 
 }
 //add_action('save_page', 'gallery_fields_update', 0);
@@ -475,16 +306,7 @@ add_action('wp_ajax_photosite_action', 'gallery_fields_update'); //работа�
 add_action('wp_ajax_nopriv_photosite_action', 'gallery_fields_update'); //работает для неавторизованных
 
 function gallery_fields_update( $post_id){
-//// если вдруг мы во фронте
-//require_once(ABSPATH .'wp-admin/includes/media.php');
-//require_once(ABSPATH .'wp-admin/includes/file.php');
-//require_once(ABSPATH .'wp-admin/includes/image.php');
-//
-//$url = 'http://s.w.org/style/images/wp-header-logo.png';
-////$post_id = 3061;
-//$desc = "Логотип WordPress";
-//
-//$img_tag = media_sideload_image( $url, $post_id, $desc );
+
 }
 
 function gallery_images_fields_update( $post_id){
@@ -493,11 +315,19 @@ require_once(ABSPATH .'wp-admin/includes/media.php');
 require_once(ABSPATH .'wp-admin/includes/file.php');
 require_once(ABSPATH .'wp-admin/includes/image.php');
 
-$url = 'http://s.w.org/style/images/wp-header-logo.png';
-//$post_id = 3061;
 $desc = "Логотип WordPress";
+if(isset($_POST['add_photo'])){
+    $attachArr = $_POST['add_photo'];
 
-$img_tag = media_sideload_image( $url, $post_id, $desc );
+        foreach($attachArr as $urlPhoto){
+        //var_dump($urlPhoto);
+        //die();
+            $img_tag = media_sideload_image( $urlPhoto, $post_id, $desc );
+            var_dump($img_tag);
+            $die();
+        }
+    }
 }
+add_action('save_post', 'gallery_images_fields_update' );
 
 ?>
