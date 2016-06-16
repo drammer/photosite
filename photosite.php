@@ -138,8 +138,12 @@ $args = array(
         'post_status'    => 'inherit',
         'post_type'      => 'attachment', // Тип: аттач.
         'post_parent'    => $post->ID, // Родительский постовой.
+        'meta_key'       => 'position',
+        'orderby'        => 'meta_value_num',
         'post_mime_type' => array('image/jpeg','image/png'), // Картинка.
-        'order'          => 'DESC' // Сортировка ASC или DESC?
+        'order'          => 'ASC', // Сортировка ASC или DESC?
+        'relation'       => 'OR',
+
     );
 
 $query = new WP_Query;
@@ -150,13 +154,20 @@ $attachments = $query->query($args);
  <input type="hidden" name="gallery_images_fields" value="<?php echo wp_create_nonce(__FILE__); ?>" />
  <div id="add_photo_block">
  <?php if(!empty($attachments)){
+ $arrFront = get_post_meta($post->ID, 'in_front', 1);
+
  foreach($attachments as $photo){ ?>
-   <span class="prev-box-photo" data-name="<?=$photo->ID?>"><img src="<?php echo wp_get_attachment_image_url($photo->ID, 'thumbnail')?>" class="prev_add_photo"><i class="trash id-photo"></i><b class="in_front"></b></span>
+   <span class="prev-box-photo" data-name="<?=$photo->ID?>"><img src="<?php echo wp_get_attachment_image_url($photo->ID, 'thumbnail')?>" class="prev_add_photo"><i class="trash id-photo"></i><b class="in_front<?php if(in_array($photo->ID, $arrFront)) echo ' active_front'?>"></b></span>
 <?php }
 }?>
 </div>
-<div id="new_photo_block">
-
+<div id="new_photo_block"><?php
+ foreach($attachments as $photo){
+if(in_array($photo->ID, $arrFront)): ?>
+   <input type="text" class="photo-<?=$photo->ID?>" value="<?=$photo->ID?>" name="in_front[]" hidden>
+<?php endif;
+ }
+ ?>
 </div>
 
     <?php
@@ -316,11 +327,18 @@ function gallery_box_func($post){  ?>
 
 }
 //add_action('save_page', 'gallery_fields_update', 0);
-add_action('wp_ajax_photosite_action', 'gallery_fields_update'); //работает для авторизованных пользователей
-add_action('wp_ajax_nopriv_photosite_action', 'gallery_fields_update'); //работает для неавторизованных
+add_action('wp_ajax_photo_position', 'photo_position_update'); //работает для авторизованных пользователей
+add_action('wp_ajax_nopriv_photo_position', 'photo_position_update'); //работает для неавторизованных
 
-function gallery_fields_update( $post_id){
-
+function photo_position_update( $post_id){
+    if($_POST['action'] == 'photo_position'){
+        $positions = $_POST['photo_position'];
+        var_dump($positions);
+        foreach($positions as $positionPhoto => $keyPhoto){
+        if(is_numeric($positionPhoto))  update_post_meta($positionPhoto,'position', $keyPhoto);
+        }
+    };
+die();
 }
 
 function gallery_images_fields_update( $post_id){
@@ -358,7 +376,8 @@ $file_array['tmp_name'] = $tmp;
     }
     else{
 
-            add_post_meta($post_id, 'in_front', $id);// or update_post_meta($post_id, 'in_front', $id);
+            //add_post_meta($post_id, 'in_front', $id);// or update_post_meta($post_id, 'in_front', $id);
+            add_post_meta($id, 'position', '');// or update_post_meta($post_id, 'in_front', $id);
 
     }
 
@@ -383,9 +402,15 @@ $file_array['tmp_name'] = $tmp;
     $delAttach = $_POST['del_photo'];
 
     foreach($delAttach as $photo){
-    wp_delete_post($photo);
+        wp_delete_post($photo);
+        delete_post_meta($photo);
     }
 
+    }
+    if(isset($_POST['in_front'])){
+    $frontPhoto = $_POST['in_front'];
+    $frontPhoto = array_unique($frontPhoto);
+        update_post_meta($post_id, 'in_front', $frontPhoto);
     }
 }
 add_action('save_post', 'gallery_images_fields_update' );

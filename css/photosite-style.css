@@ -27,6 +27,30 @@ span.prev-box-photo {
     -o-transition: all .5s;
     transition: all .5s;
 }
+.in_front {
+    position: absolute;
+    left: 10px;
+    bottom: -40px;
+    width: 40px;
+    height: 39px;
+    cursor: pointer;
+    background-image: url(../images/FrontPage_logo.jpg);
+    background-color: rgba(255, 255, 255, 0.72);
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10%;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -ms-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+    opacity: 0.5;
+}
+.prev-box-photo .in_front.active_front,
+.prev-box-photo .in_front:hover{
+    opacity: 1;
+}
+.prev-box-photo:hover .in_front,
 .prev-box-photo:hover .trash{
     -webkit-transition: all .5s;
     -moz-transition: all .5s;

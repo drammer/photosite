@@ -30,9 +30,29 @@
       <file leaf-file-name="photosite.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/photosite.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7535545">
-              <caret line="385" column="27" selection-start-line="385" selection-start-column="27" selection-end-line="385" selection-end-column="27" />
-              <folding />
+            <state vertical-scroll-proportion="0.63981044">
+              <caret line="166" column="48" selection-start-line="166" selection-start-column="48" selection-end-line="166" selection-end-column="48" />
+              <folding>
+                <element signature="e#14179#14201#0#HTML" expanded="true" />
+                <marker date="1466039108000" expanded="true" signature="7123:7370" placeholder="..." />
+                <marker date="1466039108000" expanded="true" signature="7580:7788" placeholder="..." />
+                <marker date="1466039108000" expanded="true" signature="8146:8536" placeholder="..." />
+                <marker date="1466039108000" expanded="true" signature="8504:8536" placeholder="..." />
+                <marker date="1466039108000" expanded="true" signature="8601:9780" placeholder="..." />
+                <marker date="1466039108000" expanded="true" signature="8766:8965" placeholder="..." />
+                <marker date="1466039108000" expanded="true" signature="9035:9173" placeholder="..." />
+                <marker date="1466039108000" expanded="true" signature="9243:9386" placeholder="..." />
+                <marker date="1466039108000" expanded="true" signature="9456:9587" placeholder="..." />
+                <marker date="1466039108000" expanded="true" signature="9889:10319" placeholder="..." />
+                <marker date="1466039108000" expanded="true" signature="10060:10177" placeholder="..." />
+                <marker date="1466039108000" expanded="true" signature="10137:10146" placeholder="..." />
+                <marker date="1466039108000" expanded="true" signature="10726:10942" placeholder="..." />
+                <marker date="1466039108000" expanded="true" signature="11053:12211" placeholder="..." />
+                <marker date="1466039108000" expanded="true" signature="12326:12922" placeholder="..." />
+                <marker date="1466039108000" expanded="true" signature="13261:13348" placeholder="..." />
+                <marker date="1466039108000" expanded="true" signature="13362:13578" placeholder="..." />
+                <marker date="1466039108000" expanded="true" signature="13908:14044" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -51,7 +71,7 @@
         <entry file="file://$PROJECT_DIR$/css/photosite-style.css">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+              <caret line="48" column="39" selection-start-line="48" selection-start-column="39" selection-end-line="48" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -60,8 +80,8 @@
       <file leaf-file-name="upload-script.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/upload-script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="8" column="100" selection-start-line="8" selection-start-column="91" selection-end-line="8" selection-end-column="100" />
+            <state vertical-scroll-proportion="-15.444445">
+              <caret line="29" column="80" selection-start-line="29" selection-start-column="80" selection-end-line="29" selection-end-column="80" />
               <folding />
             </state>
           </provider>
@@ -274,7 +294,13 @@
       <option name="project" value="LOCAL" />
       <updated>1465981864258</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="re upload new file and add new library elfinder">
+      <created>1466028728758</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1466028728758</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -330,7 +356,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#14179#14201#0#HTML" expanded="true" />
+            <marker date="1466039108000" expanded="true" signature="7123:7370" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="7580:7788" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="8146:8536" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="8504:8536" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="8601:9780" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="8766:8965" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="9035:9173" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="9243:9386" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="9456:9587" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="9889:10319" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="10060:10177" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="10137:10146" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="10726:10942" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="11053:12211" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="12326:12922" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="13261:13348" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="13362:13578" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="13908:14044" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -369,14 +415,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/library/jupload/UploadHandler.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.8">
-          <caret line="42" column="32" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/jquery.fileupload.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.0563867">
@@ -385,27 +423,55 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/library/jupload/UploadHandler.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.8">
+          <caret line="42" column="32" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/css/photosite-style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+          <caret line="48" column="39" selection-start-line="48" selection-start-column="39" selection-end-line="48" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/upload-script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="100" selection-start-line="8" selection-start-column="91" selection-end-line="8" selection-end-column="100" />
+        <state vertical-scroll-proportion="-15.444445">
+          <caret line="29" column="80" selection-start-line="29" selection-start-column="80" selection-end-line="29" selection-end-column="80" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/photosite.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7535545">
-          <caret line="385" column="27" selection-start-line="385" selection-start-column="27" selection-end-line="385" selection-end-column="27" />
-          <folding />
+        <state vertical-scroll-proportion="0.63981044">
+          <caret line="166" column="48" selection-start-line="166" selection-start-column="48" selection-end-line="166" selection-end-column="48" />
+          <folding>
+            <element signature="e#14179#14201#0#HTML" expanded="true" />
+            <marker date="1466039108000" expanded="true" signature="7123:7370" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="7580:7788" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="8146:8536" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="8504:8536" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="8601:9780" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="8766:8965" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="9035:9173" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="9243:9386" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="9456:9587" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="9889:10319" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="10060:10177" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="10137:10146" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="10726:10942" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="11053:12211" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="12326:12922" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="13261:13348" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="13362:13578" placeholder="..." />
+            <marker date="1466039108000" expanded="true" signature="13908:14044" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
