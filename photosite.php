@@ -7,27 +7,6 @@ Version: 1.00
 Author: drammer.g
 Author email: drammer.g@gmail.com
 */
-/*  Copyright YEAR  PLUGIN_AUTHOR_NAME  (email : drammer.g@gmail.com)
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License, version 2, as
-    published by the Free Software Foundation.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
-//function add_ajax_url(){
-//<!--    <script>-->
-//<!--        var MyAjaxUrlArr = {"ajaxurl":"http:\/\/ubc-corp.com\/wp-admin\/admin-ajax.php"};-->
-//<!--        var MyAjaxUrl = "http:\/\/ubc-corp.com\/wp-admin\/admin-ajax.php";-->
-//<!--    </script>-->
-//}
 
 function wptuts_scripts_with_jquery()
 {
@@ -136,19 +115,18 @@ function gallery_images_func($post){
 
 $args = array(
         'post_status'    => 'inherit',
-        'post_type'      => 'attachment', // Тип: аттач.
-        'post_parent'    => $post->ID, // Родительский постовой.
+        'post_type'      => 'attachment', // type attach.
+        'post_parent'    => $post->ID, // parent posts.
         'meta_key'       => 'position',
         'orderby'        => 'meta_value_num',
-        'post_mime_type' => array('image/jpeg','image/png'), // Картинка.
-        'order'          => 'ASC', // Сортировка ASC или DESC?
+        'post_mime_type' => array('image/jpeg','image/png'), // Images
+        'order'          => 'ASC',
         'relation'       => 'OR',
 
     );
 
 $query = new WP_Query;
 $attachments = $query->query($args);
-//$attachment = get_attached_media('image', $post->ID);
 ?>
 
  <input type="hidden" name="gallery_images_fields" value="<?php echo wp_create_nonce(__FILE__); ?>" />
@@ -319,16 +297,11 @@ function gallery_box_func($post){  ?>
 
     <div id="elfinder"></div>
 
-
     <?php
-//    error_reporting(E_ALL | E_STRICT);
-//    //require('library/jupload/UploadHandler.php');
-//    //$uploadImage = new UploadHandler();
-
 }
-//add_action('save_page', 'gallery_fields_update', 0);
-add_action('wp_ajax_photo_position', 'photo_position_update'); //работает для авторизованных пользователей
-add_action('wp_ajax_nopriv_photo_position', 'photo_position_update'); //работает для неавторизованных
+
+add_action('wp_ajax_photo_position', 'photo_position_update'); 
+add_action('wp_ajax_nopriv_photo_position', 'photo_position_update');
 
 function photo_position_update( $post_id){
     if($_POST['action'] == 'photo_position'){
@@ -375,22 +348,12 @@ $file_array['tmp_name'] = $tmp;
     var_dump( $id->get_error_messages() );
     }
     else{
-
-            //add_post_meta($post_id, 'in_front', $id);// or update_post_meta($post_id, 'in_front', $id);
-            add_post_meta($id, 'position', '');// or update_post_meta($post_id, 'in_front', $id);
+                      add_post_meta($id, 'position', '');// or update_post_meta($post_id, 'in_front', $id);
 
     }
 
     @unlink( $file_array['tmp_name']);
 }
-//рабочий вариант
-        //foreach($attachArr as $urlPhoto){
-        //var_dump($urlPhoto);
-        //die();
-          //  $img_tag = media_sideload_image( $urlPhoto, $post_id, $desc );
-            //var_dump($img_tag);
-            //$die();
-       // }
 
        foreach($attachArr as $urlPhoto){
 
